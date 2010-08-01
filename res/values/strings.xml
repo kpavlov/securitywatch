@@ -2,4 +2,5 @@
 <resources>
     <string name="title">Application Security</string>
     <string name="app_name">Security Watch</string>
+    <string name="app_description">Shows installed applications which MAY read confidential information from your device and send information to the Internet.</string>
 </resources>
