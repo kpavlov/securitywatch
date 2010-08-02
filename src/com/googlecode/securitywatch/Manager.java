@@ -57,4 +57,10 @@ public class Manager {
         }
         return applications;
     }
+
+    public static void refresh(Context ctx) {
+        synchronized (LOCK) {
+            applications = listApplications(ctx, true, true);
+        }
+    }
 }

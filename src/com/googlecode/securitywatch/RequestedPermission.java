@@ -1,6 +1,6 @@
 package com.googlecode.securitywatch;
 
-import android.Manifest;
+import android.*;
 
 /**
  * RequestedPermission

@@ -2,10 +2,7 @@ package com.googlecode.securitywatch;
 
 import android.app.ExpandableListActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
@@ -38,6 +35,29 @@ public class MainActivity extends ExpandableListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.setHeaderTitle("Sample menu");
 //        menu.add(0, 0, 0, R.string.expandable_list_sample_action);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+    case R.id.refresh:
+        Manager.refresh(this);
+        super.onContentChanged();
+        return true;
+//    case R.id.quit:
+//        quit();
+//        return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /** If the applications are cached, just show them, otherwise load and show * /
@@ -120,14 +140,6 @@ public class MainActivity extends ExpandableListActivity {
      * list of photos and adding a new photo.
      */
     public class MyExpandableListAdapter extends BaseExpandableListAdapter {
-        // Sample data set.  children[i] contains the children (String[]) for groups[i].
-        private String[] groups = {"People Names", "Dog Names", "Cat Names", "Fish Names"};
-        private String[][] children = {
-                {"Arnold", "Barry", "Chuck", "David"},
-                {"Ace", "Bandit", "Cha-Cha", "Deuce"},
-                {"Fluffy", "Snuggles"},
-                {"Goldy", "Bubbles"}
-        };
 
         public Object getChild(int groupPosition, int childPosition) {
             return Manager.getApplications(MainActivity.this).getList(
