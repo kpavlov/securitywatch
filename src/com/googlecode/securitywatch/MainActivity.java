@@ -3,9 +3,6 @@ package com.googlecode.securitywatch;
 import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.AbsListView;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.TextView;
 
 /**
  * MainActivity
@@ -16,19 +13,13 @@ import android.widget.TextView;
  * @since 15.07.2010
  */
 public class MainActivity extends ExpandableListActivity {
-    
-    private MyExpandableListAdapter mAdapter;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Set up our adapter
-        mAdapter = new MyExpandableListAdapter();
-        setListAdapter(mAdapter);
-//        ExpandableListView epView = (ExpandableListView) findViewById(R.id.ExpandableListView01);
-//        setContentView(R.layout.main);
+        setListAdapter(new PermissionListAdapter(this));
     }
 
     @Override
@@ -48,10 +39,10 @@ public class MainActivity extends ExpandableListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-    case R.id.refresh:
-        Manager.refresh(this);
-        super.onContentChanged();
-        return true;
+        case R.id.refresh:
+            Manager.refresh(this);
+            super.onContentChanged();
+            return true;
 //    case R.id.quit:
 //        quit();
 //        return true;
@@ -134,77 +125,4 @@ public class MainActivity extends ExpandableListActivity {
      }
      */
 
-    /**
-     * A simple adapter which maintains an ArrayList of photo resource Ids.
-     * Each photo is displayed as an image. This adapter supports clearing the
-     * list of photos and adding a new photo.
-     */
-    public class MyExpandableListAdapter extends BaseExpandableListAdapter {
-
-        public Object getChild(int groupPosition, int childPosition) {
-            return Manager.getApplications(MainActivity.this).getList(
-                    RequestedPermission.values()[groupPosition]
-            ).get(childPosition);
-        }
-
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        public int getChildrenCount(int groupPosition) {
-            return Manager.getApplications(MainActivity.this).getList(
-                    RequestedPermission.values()[groupPosition]
-            ).size();
-        }
-
-        public TextView getGenericView() {
-            // Layout parameters for the ExpandableListView
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT, 64);
-
-            TextView textView = new TextView(MainActivity.this);
-            textView.setLayoutParams(lp);
-            // Center the text vertically
-            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-//        textView.setTextColor(R.color.marcyred);
-            // Set the text starting position
-            textView.setPadding(36, 0, 0, 0);
-            return textView;
-        }
-
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-                                 View convertView, ViewGroup parent) {
-            TextView textView = getGenericView();
-            textView.setText(getChild(groupPosition, childPosition).toString());
-            return textView;
-        }
-
-        public Object getGroup(int groupPosition) {
-            return RequestedPermission.values()[groupPosition].getTitle();
-        }
-
-        public int getGroupCount() {
-            return RequestedPermission.values().length;
-        }
-
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-                                 ViewGroup parent) {
-            TextView textView = getGenericView();
-            textView.setText(getGroup(groupPosition).toString());
-            return textView;
-        }
-
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return true;
-        }
-
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
 }
