@@ -3,16 +3,16 @@ package com.googlecode.securitywatch;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
 
 import java.util.List;
 
 /**
  * Manager
- * <p/>
- * Revision: 1
  *
- * @author maestro
+ * @author Konstantin Pavlov
  * @since 31.07.2010
  */
 public class Manager {

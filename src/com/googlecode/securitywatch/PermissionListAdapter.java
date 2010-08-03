@@ -11,9 +11,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 /**
- * A simple adapter which maintains an ArrayList of photo resource Ids.
- * Each photo is displayed as an image. This adapter supports clearing the
- * list of photos and adding a new photo.
+ * Adapter which maintains expandable permission list with applications which have these permissions.
+ *
+ * @author Konstantin Pavlov
+ * @since 1.0.1
  */
 class PermissionListAdapter extends BaseExpandableListAdapter {
 

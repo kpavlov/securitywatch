@@ -12,6 +12,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
+        <activity android:name=".ApplicationPreferences"
+                  android:label="@string/preferences_activity_label">
+            <intent-filter>
+                <action android:name="com.googlecode.securitywatch.ACTION_EDIT_PREFERENCES"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".watch.PackageInstallReceiver"
+                  android:label="PackageInstallReceiver"
+                  android:enabled="false"/>
     </application>
     <uses-sdk android:targetSdkVersion="7"
               android:minSdkVersion="3"/>
