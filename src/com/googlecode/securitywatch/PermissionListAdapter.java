@@ -1,6 +1,6 @@
 package com.googlecode.securitywatch;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.view.Gravity;
@@ -19,16 +19,22 @@ import android.widget.TextView;
 class PermissionListAdapter extends BaseExpandableListAdapter {
 
     private final PackageManager packageManager;
-    private final Context ctx;
+    private final Activity ctx;
 
-    public PermissionListAdapter(Context ctx) {
+    public PermissionListAdapter(Activity ctx) {
         this.ctx = ctx;
         this.packageManager = ctx.getPackageManager();
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
     public Object getChild(int groupPosition, int childPosition) {
-        return Manager.getApplications(ctx).getList(
-                RequestedPermission.values()[groupPosition]
+        final IndexedMultiValueMap<String, String> data = getData();
+        return data.getList(
+                data.keyList().get(groupPosition)
         ).get(childPosition);
     }
 
@@ -37,9 +43,13 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
     }
 
     public int getChildrenCount(int groupPosition) {
-        return Manager.getApplications(ctx).getList(
-                RequestedPermission.values()[groupPosition]
+        return getData().getList(
+                getData().keyList().get(groupPosition)
         ).size();
+    }
+
+    private IndexedMultiValueMap<String, String> getData() {
+        return Logic.getApplications(ctx);
     }
 
     private TextView getGenericView() {
@@ -65,11 +75,11 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
     }
 
     public Object getGroup(int groupPosition) {
-        return getPermissionLabel(RequestedPermission.values()[groupPosition].getPermission());
+        return getPermissionLabel(getData().keyList().get(groupPosition));
     }
 
     public int getGroupCount() {
-        return RequestedPermission.values().length;
+        return getData().size();
     }
 
     public long getGroupId(int groupPosition) {

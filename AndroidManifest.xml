@@ -12,18 +12,28 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        
+
+        <!-- Preferences activity -->
         <activity android:name=".ApplicationPreferences"
                   android:label="@string/preferences_activity_label">
             <intent-filter>
                 <action android:name="com.googlecode.securitywatch.ACTION_EDIT_PREFERENCES"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.PREFERENCE"/>
             </intent-filter>
         </activity>
 
+        <!-- Following receiver scans application after install or upgrade -->
+        <!--
         <receiver android:name=".watch.PackageInstallReceiver"
                   android:label="PackageInstallReceiver"
-                  android:enabled="false"/>
+                  android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        -->
     </application>
     <uses-sdk android:targetSdkVersion="7"
               android:minSdkVersion="3"/>

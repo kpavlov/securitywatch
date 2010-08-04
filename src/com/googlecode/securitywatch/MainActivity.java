@@ -1,9 +1,10 @@
 package com.googlecode.securitywatch;
 
 import android.app.ExpandableListActivity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * MainActivity
@@ -22,12 +23,6 @@ public class MainActivity extends ExpandableListActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Sample menu");
-//        menu.add(0, 0, 0, R.string.expandable_list_sample_action);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
@@ -39,20 +34,31 @@ public class MainActivity extends ExpandableListActivity {
         // Handle item selection
         switch (item.getItemId()) {
         case R.id.refresh:
-            Manager.refresh(this);
+            Logic.refresh(this);
             super.onContentChanged();
             return true;
+        /*
         case R.id.preferences:
             startActivity(new Intent(ApplicationPreferences.ACTION_EDIT_PREFERENCES));
             return true;
         case R.id.help:
             return true;
-//    case R.id.quit:
-//        quit();
-//        return true;
+        */
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Logic.clearCache();
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        Logic.clearCache();
+        super.onLowMemory();
     }
 
     /** If the applications are cached, just show them, otherwise load and show * /
@@ -70,7 +76,7 @@ public class MainActivity extends ExpandableListActivity {
      };
      new Thread() {
      public void run() {
-     Manager.listApplications(MainActivity.this);
+     Logic.listApplications(MainActivity.this);
      handler.sendEmptyMessage(0);
      }
      }.start();
