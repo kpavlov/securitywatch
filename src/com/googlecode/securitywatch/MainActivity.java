@@ -1,6 +1,7 @@
 package com.googlecode.securitywatch;
 
 import android.app.ExpandableListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,10 +38,10 @@ public class MainActivity extends ExpandableListActivity {
             Logic.refresh(this);
             super.onContentChanged();
             return true;
-        /*
         case R.id.preferences:
             startActivity(new Intent(ApplicationPreferences.ACTION_EDIT_PREFERENCES));
             return true;
+        /*
         case R.id.help:
             return true;
         */

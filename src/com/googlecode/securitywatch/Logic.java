@@ -2,8 +2,10 @@ package com.googlecode.securitywatch;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 
 import java.util.List;
 
@@ -24,12 +26,23 @@ public abstract class Logic {
         return PackageManager.PERMISSION_GRANTED == pkgmanager.checkPermission(permission, app.packageName);
     }
 
-    public static IndexedMultiValueMap<String, String> listApplications(Activity ctx, boolean internetOnly, boolean excludeSystem) {
+    public static IndexedMultiValueMap<String, String> listApplications(Activity ctx) {
         IndexedMultiValueMap<String, String> result = new IndexedMultiValueMap<String, String>();
         final PackageManager pkgmanager = ctx.getPackageManager();
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        final boolean internetOnly = prefs.getBoolean(ApplicationPreferences.KEY_INTERNET_ONLY, true);
+        final boolean excludeSystem = !prefs.getBoolean(ApplicationPreferences.KEY_INCLUDE_SYSTEM, false);
+
         final List<ApplicationInfo> installed = pkgmanager.getInstalledApplications(PackageManager.GET_PERMISSIONS);
         for (final ApplicationInfo app : installed) {
-            for (RequestedPermission requestedPermission : RequestedPermission.values()) {
+            for (RequestedPermission permission : RequestedPermission.values()) {
+                //noinspection StringEquality
+                if (internetOnly && Manifest.permission.INTERNET == permission.getPermission()) {
+                    // don't show apps having inet permission in separate group
+                    continue;
+                }
+
                 if (excludeSystem && ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 1)) {
                     continue;
                 }
@@ -38,8 +51,8 @@ public abstract class Logic {
                     continue;
                 }
 
-                if (hasPermission(app, requestedPermission.getPermission(), pkgmanager)) {
-                    result.add(requestedPermission.getPermission(), pkgmanager.getApplicationLabel(app).toString());
+                if (hasPermission(app, permission.getPermission(), pkgmanager)) {
+                    result.add(permission.getPermission(), pkgmanager.getApplicationLabel(app).toString());
                 }
             }
         }
@@ -51,7 +64,7 @@ public abstract class Logic {
         if (applications == null) {
             // fetch
             synchronized (LOCK) {
-                applications = listApplications(ctx, true, true);
+                applications = listApplications(ctx);
             }
         }
         return applications;
@@ -65,7 +78,7 @@ public abstract class Logic {
 
     public static void refresh(Activity ctx) {
         synchronized (LOCK) {
-            applications = listApplications(ctx, true, true);
+            applications = listApplications(ctx);
         }
     }
 }

@@ -18,7 +18,7 @@
                   android:label="@string/preferences_activity_label">
             <intent-filter>
                 <action android:name="com.googlecode.securitywatch.ACTION_EDIT_PREFERENCES"/>
-                <category android:name="android.intent.category.PREFERENCE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 

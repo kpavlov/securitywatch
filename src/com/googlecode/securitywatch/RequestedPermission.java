@@ -10,6 +10,8 @@ import android.Manifest;
  */
 public enum RequestedPermission {
 
+    INTERNET(Manifest.permission.INTERNET),
+
     READ_CONTACTS(Manifest.permission.READ_CONTACTS),
     WRITE_CONTACTS(Manifest.permission.WRITE_CONTACTS),
     

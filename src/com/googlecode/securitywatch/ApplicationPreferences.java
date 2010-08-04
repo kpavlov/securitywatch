@@ -12,6 +12,10 @@ import android.preference.PreferenceActivity;
  */
 public class ApplicationPreferences extends PreferenceActivity {
 
+    public static final String KEY_INTERNET_ONLY = "internetOnly";
+    public static final String KEY_INCLUDE_SYSTEM = "includeSystem";
+    public static final String KEY_INCLUDE_PACKAGES = "includePackages";
+
     /** This activity can be started by an intent with this action. */
     public final static String ACTION_EDIT_PREFERENCES = "com.googlecode.securitywatch.ACTION_EDIT_PREFERENCES";
 
