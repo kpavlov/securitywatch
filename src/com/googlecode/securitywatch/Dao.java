@@ -10,29 +10,25 @@ import android.preference.PreferenceManager;
 import java.util.List;
 
 /**
- * Business Logic
+ * Business Dao
  *
  * @author Konstantin Pavlov
  * @since 31.07.2010
  */
-public abstract class Logic {
+public abstract class Dao {
 
     private static final Object LOCK = new Object();
 
     /** Maps permission to package names */
     private static IndexedMultiValueMap<String, String> applications;
 
-    public static boolean hasPermission(ApplicationInfo app, String permission, final PackageManager pkgmanager) {
-        return PackageManager.PERMISSION_GRANTED == pkgmanager.checkPermission(permission, app.packageName);
-    }
-
     public static IndexedMultiValueMap<String, String> listApplications(Activity ctx) {
         IndexedMultiValueMap<String, String> result = new IndexedMultiValueMap<String, String>();
         final PackageManager pkgmanager = ctx.getPackageManager();
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-        final boolean internetOnly = prefs.getBoolean(ApplicationPreferences.KEY_INTERNET_ONLY, true);
-        final boolean excludeSystem = !prefs.getBoolean(ApplicationPreferences.KEY_INCLUDE_SYSTEM, false);
+        final boolean internetOnly = prefs.getBoolean(AppPreferences.KEY_INTERNET_ONLY, true);
+        final boolean excludeSystem = !prefs.getBoolean(AppPreferences.KEY_INCLUDE_SYSTEM, false);
 
         final List<ApplicationInfo> installed = pkgmanager.getInstalledApplications(PackageManager.GET_PERMISSIONS);
         for (final ApplicationInfo app : installed) {
@@ -47,11 +43,11 @@ public abstract class Logic {
                     continue;
                 }
 
-                if (internetOnly && !hasPermission(app, Manifest.permission.INTERNET, pkgmanager)) {
+                if (internetOnly && !Utils.hasPermission(app.packageName, Manifest.permission.INTERNET, pkgmanager)) {
                     continue;
                 }
 
-                if (hasPermission(app, permission.getPermission(), pkgmanager)) {
+                if (Utils.hasPermission(app.packageName, permission.getPermission(), pkgmanager)) {
                     result.add(permission.getPermission(), pkgmanager.getApplicationLabel(app).toString());
                 }
             }

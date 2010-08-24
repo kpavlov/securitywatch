@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 /**
- * ApplicationPreferences can be used to edit SecurityWatch preferences.
+ * AppPreferences can be used to edit SecurityWatch preferences.
  * <p/>
  *
  * @author Konstantin Pavlov
  * @since 1.0.1
  */
-public class ApplicationPreferences extends PreferenceActivity {
+public class AppPreferences extends PreferenceActivity {
 
     public static final String KEY_INTERNET_ONLY = "internetOnly";
     public static final String KEY_INCLUDE_SYSTEM = "includeSystem";
@@ -25,5 +25,10 @@ public class ApplicationPreferences extends PreferenceActivity {
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.preferences);
+
+        Presenter.preferencesActivity = this;
+
     }
+
+
 }

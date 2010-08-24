@@ -1,8 +1,6 @@
 package com.googlecode.securitywatch;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +16,10 @@ import android.widget.TextView;
  */
 class PermissionListAdapter extends BaseExpandableListAdapter {
 
-    private final PackageManager packageManager;
     private final Activity ctx;
 
     public PermissionListAdapter(Activity ctx) {
         this.ctx = ctx;
-        this.packageManager = ctx.getPackageManager();
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -49,7 +40,7 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
     }
 
     private IndexedMultiValueMap<String, String> getData() {
-        return Logic.getApplications(ctx);
+        return Dao.getApplications(ctx);
     }
 
     private TextView getGenericView() {
@@ -75,7 +66,9 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
     }
 
     public Object getGroup(int groupPosition) {
-        return getPermissionLabel(getData().keyList().get(groupPosition));
+        return Utils.getPermissionLabel(
+                getData().keyList().get(groupPosition),
+                ctx.getPackageManager());
     }
 
     public int getGroupCount() {
@@ -99,25 +92,5 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
 
     public boolean hasStableIds() {
         return true;
-    }
-
-    private CharSequence getPermissionLabel(String permission) {
-        try {
-            PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission, 0);
-            return permissionInfo.loadLabel(packageManager);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private CharSequence getPermissionDescription(String permission) {
-        try {
-            PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission, 0);
-            return permissionInfo.loadDescription(packageManager);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

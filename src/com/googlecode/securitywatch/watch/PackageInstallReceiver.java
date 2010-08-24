@@ -21,6 +21,9 @@ public class PackageInstallReceiver extends BroadcastReceiver {
         if (Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction()) || Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction())) {
             // || Intent.ACTION_PACKAGE_INSTALL
             // Send a text notification to the screen.
+            final CharSequence uid = intent.getCharSequenceExtra(Intent.EXTRA_UID);
+//            context.getPackageManager().getPackagesForUid()
+
             Log.d(TAG, "package installed or replaced. Need to scan");
 //        NotificationManager nm = (NotificationManager)
 //        context.getSystemService(Context.NOTIFICATION_SERVICE);
