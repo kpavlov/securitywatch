@@ -12,19 +12,19 @@ import java.util.List;
 
 public class Scanner {
 
-    public List<Risk> scan(ApplicationInfo app, Context context) {
-        ArrayList<Risk> risks = new ArrayList<Risk>();
+    public List<Vulnerability> scan(ApplicationInfo app, Context context) {
+        ArrayList<Vulnerability> vulnerabilities = new ArrayList<Vulnerability>();
 
-        final SendContactsRisk sendContactsRisk = new SendContactsRisk();
+        final SendContactsVulnerability sendContactsRisk = new SendContactsVulnerability();
         if (sendContactsRisk.realized(app.packageName, context.getPackageManager())) {
-            risks.add(sendContactsRisk);
+            vulnerabilities.add(sendContactsRisk);
         }
 
-        final UseAccountsRisk useAccountsRisk = new UseAccountsRisk();
+        final UseAccountsVulnerability useAccountsRisk = new UseAccountsVulnerability();
         if (sendContactsRisk.realized(app.packageName, context.getPackageManager())) {
-            risks.add(sendContactsRisk);
+            vulnerabilities.add(sendContactsRisk);
         }
 
-        return risks;
+        return vulnerabilities;
     }
 }

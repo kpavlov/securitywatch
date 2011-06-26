@@ -2,11 +2,13 @@ package com.googlecode.securitywatch;
 
 import android.app.ExpandableListActivity;
 import android.content.Intent;
+import android.content.pm.PackageItemInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
+import android.widget.ExpandableListView;
 
 /**
  * PermissionsActivity
@@ -17,20 +19,33 @@ import android.view.Window;
 public class PermissionsActivity extends ExpandableListActivity {
 
     /**
+     * Holds reference to {@link PermissionListAdapter}
+     */
+    private PermissionListAdapter permissionListAdapter;
+
+    /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
-        getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-                Window.PROGRESS_INDETERMINATE_ON);
 
         // Set up our adapter
         Presenter.permissionsActivity = this;
 
-        setListAdapter(new PermissionListAdapter(this));
+        permissionListAdapter = new PermissionListAdapter(this);
+        setListAdapter(permissionListAdapter);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        if (permissionListAdapter.getGroupCount() == 0) {
+            // not initialized or reset
+            Presenter.refreshPermissionsView(null);
+        }
+        super.onResume();
     }
 
     @Override
@@ -40,6 +55,12 @@ public class PermissionsActivity extends ExpandableListActivity {
         return true;
     }
 
+    /**
+     * Handles options menu
+     *
+     * @param item selected item
+     * @return true if action is handled
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -48,6 +69,8 @@ public class PermissionsActivity extends ExpandableListActivity {
                 Presenter.refreshPermissionsView(item);
                 return true;
             case R.id.preferences:
+                // reset data before calling preferences
+                permissionListAdapter.setData(null);
                 startActivity(new Intent(AppPreferences.ACTION_EDIT_PREFERENCES));
                 return true;
             /*
@@ -60,14 +83,28 @@ public class PermissionsActivity extends ExpandableListActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        Dao.clearCache();
-        super.onSaveInstanceState(outState);
+    public void onLowMemory() {
+        permissionListAdapter.setData(null);
+        super.onLowMemory();
     }
 
+    /** Called by presenter when presenter has fiished fetching data from DAO */
+    public void onContentChanged(IndexedMultiValueMap<String, PackageItemInfo> data) {
+        permissionListAdapter.setData(data);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * Handles click on child element - shows applicaiton permissions dialog
+     */
     @Override
-    public void onLowMemory() {
-        Presenter.onLowMemory();
-        super.onLowMemory();
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        PackageItemInfo child = permissionListAdapter.getChild(groupPosition, childPosition);
+        if (child != null) {
+            Utils.showInstalledAppDetails(this, child.packageName);
+            return true;
+        }
+        return super.onChildClick(parent, v, groupPosition, childPosition, id);
     }
 }

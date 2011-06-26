@@ -6,22 +6,20 @@
             android:title="@string/preferences_internet_only_title"
             android:summaryOn="@string/preferences_internet_only_summaryOn"
             android:summaryOff="@string/preferences_internet_only_summaryOff"
-            android:defaultValue="true"
-            />
-<!--
-    <android.preference.CheckBoxPreference
-            android:key="includePackages"
-            android:title="@string/preferences_analyze_packages_title"
-            android:summaryOn="@string/preferences_analyze_packages_summaryOn"
-            android:summaryOff="@string/preferences_analyze_packages_summaryOff"
-            android:defaultValue="false"
-            />
--->
+            android:defaultValue="true"/>
+
     <android.preference.CheckBoxPreference
             android:key="includeSystem"
             android:title="@string/preferences_include_system_title"
             android:summaryOn="@string/preferences_include_system_summaryOn"
             android:summaryOff="@string/preferences_include_system_summaryOff"
-            android:defaultValue="false"
-            />
+            android:defaultValue="false"/>
+    <!--
+        <android.preference.CheckBoxPreference
+                android:key="includePackages"
+                android:title="@string/preferences_analyze_packages_title"
+                android:summaryOn="@string/preferences_analyze_packages_summaryOn"
+                android:summaryOff="@string/preferences_analyze_packages_summaryOff"
+                android:defaultValue="false"/>
+    -->
 </PreferenceScreen>

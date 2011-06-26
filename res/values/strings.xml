@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <string name="title">Application Security</string>
     <string name="app_name">Security Watch</string>
     <string name="app_description">Shows installed applications which MAY read confidential information from your device and send information to the Internet.</string>
 
     <string name="menu_refresh">Refresh</string>
-    <string name="menu_help">Help</string>
+    <!--<string name="menu_help">Help</string>-->
     <string name="menu_preferences">Preferences</string>
 
     <string name="preferences_activity_label">Preferences</string>

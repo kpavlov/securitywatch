@@ -1,19 +1,14 @@
 package com.googlecode.securitywatch;
 
+import android.app.ProgressDialog;
+import android.content.pm.PackageItemInfo;
 import android.os.AsyncTask;
 import android.view.MenuItem;
-import android.view.Window;
 
 /**
  * Presenter
- * <p/>
- * Revision: 1
- * <p/>
- * Date: 08.08.2010
- * <p/>
- * Copyright by Konstantin Pavlov
  *
- * @author maestro
+ * @author Konstantin Pavlov
  */
 public class Presenter {
 
@@ -25,40 +20,46 @@ public class Presenter {
         task.execute();
     }
 
-    public static void onLowMemory() {
-        Dao.clearCache();
-    }
-
-    private static class UpdateAppPermissionsTask extends AsyncTask<Void, Boolean, IndexedMultiValueMap<String, String>> {
+    /**
+     * Background task which updates expandable list
+     */
+    private static class UpdateAppPermissionsTask extends AsyncTask<Void, Boolean, IndexedMultiValueMap<String, PackageItemInfo>> {
         private final MenuItem item;
+
+        private ProgressDialog dialog;
 
         public UpdateAppPermissionsTask(MenuItem item) {
             this.item = item;
         }
 
         @Override
-        protected IndexedMultiValueMap<String, String> doInBackground(Void... params) {
+        protected IndexedMultiValueMap<String, PackageItemInfo> doInBackground(Void... params) {
             if (item != null) {
                 item.setEnabled(false);
             }
             publishProgress(true);
-            Dao.clearCache();
-            return Dao.listApplications(permissionsActivity);
+            return PermissionDAO.listApplications(permissionsActivity);
         }
 
         @Override
         protected void onProgressUpdate(Boolean... values) {
             if (values[0]) {
-                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-                        Window.PROGRESS_VISIBILITY_ON);
-            } else {
-                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-                        Window.PROGRESS_VISIBILITY_OFF);
+                dialog = ProgressDialog.show(permissionsActivity, "",
+                        "Loading. Please wait...", true);
+
+//                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
+//                        Window.PROGRESS_VISIBILITY_ON);
+            } else if (dialog != null) {
+                dialog.hide();
+                dialog = null;
+//                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
+//                        Window.PROGRESS_VISIBILITY_OFF);
             }
         }
 
         @Override
-        protected void onPostExecute(IndexedMultiValueMap<String, String> stringStringIndexedMultiValueMap) {
+        protected void onPostExecute(IndexedMultiValueMap<String, PackageItemInfo> result) {
+            permissionsActivity.onContentChanged(result);
             permissionsActivity.onContentChanged();
             publishProgress(false);
             if (item != null) {

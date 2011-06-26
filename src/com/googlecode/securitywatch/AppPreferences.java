@@ -12,11 +12,23 @@ import android.preference.PreferenceActivity;
  */
 public class AppPreferences extends PreferenceActivity {
 
+    /**
+     * Shows only applications with granted internet access
+     */
     public static final String KEY_INTERNET_ONLY = "internetOnly";
+    /**
+     * Include system applications
+     */
     public static final String KEY_INCLUDE_SYSTEM = "includeSystem";
+
+    /**
+     * Include packages (libraries
+     */
     public static final String KEY_INCLUDE_PACKAGES = "includePackages";
 
-    /** This activity can be started by an intent with this action. */
+    /**
+     * This activity can be started by an intent with this action.
+     */
     public final static String ACTION_EDIT_PREFERENCES = "com.googlecode.securitywatch.ACTION_EDIT_PREFERENCES";
 
     @Override
@@ -27,8 +39,5 @@ public class AppPreferences extends PreferenceActivity {
         addPreferencesFromResource(R.xml.preferences);
 
         Presenter.preferencesActivity = this;
-
     }
-
-
 }
