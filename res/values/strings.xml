@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources >
+<resources>
     <string name="app_name">Security Watch</string>
-    <string name="app_description">Shows installed applications which MAY read confidential information from your device and send information to the Internet.</string>
+    <string name="app_description">Shows installed applications which MAY read confidential information from your device
+        and send information to the Internet.
+    </string>
+
+    <string name="permissions_activity_label">Permissions and Apps</string>
 
     <string name="dialog_loading_title">Loading permissions</string>
     <string name="dialog_loading_description">Please wait...</string>
@@ -22,5 +26,8 @@
 
     <string name="preferences_internet_only_title">Internet Apps Only</string>
     <string name="preferences_internet_only_summaryOn">Show Applications/Packages that REQUIRE Internet access.</string>
-    <string name="preferences_internet_only_summaryOff">Show Applications/Packages that DOES NOT REQUIRE Internet access.</string>
+    <string name="preferences_internet_only_summaryOff">Show Applications/Packages that DOES NOT REQUIRE Internet
+        access.
+    </string>
+
 </resources>

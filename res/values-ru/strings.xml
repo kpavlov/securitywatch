@@ -7,6 +7,8 @@
     <string name="app_name">Security Watch</string>
     <string name="app_description">Показывает, какие права запрашивают установленные в системе приложения.</string>
 
+    <string name="permissions_activity_label">Права и приложения</string>
+
     <string name="dialog_loading_title">Загружаю права доступа</string>
     <string name="dialog_loading_description">Пожалуйста, подождите...</string>
 

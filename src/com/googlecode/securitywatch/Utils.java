@@ -58,7 +58,7 @@ public abstract class Utils {
         Intent intent = new Intent();
         final int apiLevel = Build.VERSION.SDK_INT;
         if (apiLevel >= 9) { // above 2.3
-            intent.setAction("android.settings.ACTION_APPLICATION_DETAILS_SETTINGS");
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
             Uri uri = Uri.fromParts(SCHEME, packageName, null);
             intent.setData(uri);
         } else { // below 2.3

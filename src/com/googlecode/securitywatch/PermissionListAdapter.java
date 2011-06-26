@@ -47,14 +47,10 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
         ).size();
     }
 
-    private IndexedMultiValueMap<String, PackageItemInfo> getData() {
-        return data;
-    }
-
     private TextView getGenericView() {
         // Layout parameters for the ExpandableListView
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 64);
+                ViewGroup.LayoutParams.FILL_PARENT, 36);
 
         TextView textView = new TextView(ctx);
         textView.setLayoutParams(lp);
