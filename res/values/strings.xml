@@ -3,6 +3,9 @@
     <string name="app_name">Security Watch</string>
     <string name="app_description">Shows installed applications which MAY read confidential information from your device and send information to the Internet.</string>
 
+    <string name="dialog_loading_title">Loading permissions</string>
+    <string name="dialog_loading_description">Please wait...</string>
+
     <string name="menu_refresh">Refresh</string>
     <!--<string name="menu_help">Help</string>-->
     <string name="menu_preferences">Preferences</string>

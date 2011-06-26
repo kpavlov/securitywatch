@@ -3,9 +3,12 @@
   ~ Copyright (c) 2011.
   -->
 
-<resources >
+<resources>
     <string name="app_name">Security Watch</string>
     <string name="app_description">Показывает, какие права запрашивают установленные в системе приложения.</string>
+
+    <string name="dialog_loading_title">Загружаю права доступа</string>
+    <string name="dialog_loading_description">Пожалуйста, подождите...</string>
 
     <string name="menu_refresh">Обновить</string>
     <!--<string name="menu_help">Помощь</string>-->
@@ -14,14 +17,19 @@
     <string name="preferences_activity_label">Настройки</string>
 
     <string name="preferences_analyze_packages_title">Библиотеки</string>
-    <string name="preferences_analyze_packages_summaryOn">Будут анализироваться установленные приложения и библиотеки</string>
-    <string name="preferences_analyze_packages_summaryOff">Будут анализироваться ТОЛЬКО установленные приложения</string>
+    <string name="preferences_analyze_packages_summaryOn">Будут анализироваться установленные приложения и библиотеки
+    </string>
+    <string name="preferences_analyze_packages_summaryOff">Будут анализироваться ТОЛЬКО установленные приложения
+    </string>
 
     <string name="preferences_include_system_title">Системные приложения</string>
     <string name="preferences_include_system_summaryOn">Анализировать также системные приложения и библиотеки</string>
-    <string name="preferences_include_system_summaryOff">Системные приложения и библиотеки анализироваться НЕ БУДУТ</string>
+    <string name="preferences_include_system_summaryOff">Системные приложения и библиотеки анализироваться НЕ БУДУТ
+    </string>
 
     <string name="preferences_internet_only_title">Только Интернет-apps</string>
-    <string name="preferences_internet_only_summaryOn">Анализировать ТОЛЬКО приложения и библотеки, требующие доступ в Интернет</string>
+    <string name="preferences_internet_only_summaryOn">Анализировать ТОЛЬКО приложения и библотеки, требующие доступ в
+        Интернет
+    </string>
     <string name="preferences_internet_only_summaryOff">Анализировать ВСЕ приложения и библотеки</string>
 </resources>

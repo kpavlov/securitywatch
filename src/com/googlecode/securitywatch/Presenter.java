@@ -44,23 +44,20 @@ public class Presenter {
         @Override
         protected void onProgressUpdate(Boolean... values) {
             if (values[0]) {
-                dialog = ProgressDialog.show(permissionsActivity, "",
-                        "Loading. Please wait...", true);
+                dialog = ProgressDialog.show(permissionsActivity,
+                        permissionsActivity.getResources().getString(R.string.dialog_loading_title),
+                        permissionsActivity.getResources().getString(R.string.dialog_loading_description),
+                        true);
 
-//                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-//                        Window.PROGRESS_VISIBILITY_ON);
             } else if (dialog != null) {
                 dialog.hide();
                 dialog = null;
-//                permissionsActivity.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-//                        Window.PROGRESS_VISIBILITY_OFF);
             }
         }
 
         @Override
         protected void onPostExecute(IndexedMultiValueMap<String, PackageItemInfo> result) {
             permissionsActivity.onContentChanged(result);
-            permissionsActivity.onContentChanged();
             publishProgress(false);
             if (item != null) {
                 item.setEnabled(true);
