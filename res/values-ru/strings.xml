@@ -18,20 +18,20 @@
 
     <string name="preferences_activity_label">Настройки</string>
 
-    <string name="preferences_analyze_packages_title">Библиотеки</string>
-    <string name="preferences_analyze_packages_summaryOn">Будут анализироваться установленные приложения и библиотеки
-    </string>
-    <string name="preferences_analyze_packages_summaryOff">Будут анализироваться ТОЛЬКО установленные приложения
-    </string>
+    <!--<string name="preferences_analyze_packages_title">Библиотеки</string>-->
+    <!--<string name="preferences_analyze_packages_summaryOn">Будут анализироваться установленные приложения и библиотеки-->
+    <!--</string>-->
+    <!--<string name="preferences_analyze_packages_summaryOff">Будут анализироваться ТОЛЬКО установленные приложения-->
+    <!--</string>-->
 
     <string name="preferences_include_system_title">Системные приложения</string>
-    <string name="preferences_include_system_summaryOn">Анализировать также системные приложения и библиотеки</string>
-    <string name="preferences_include_system_summaryOff">Системные приложения и библиотеки анализироваться НЕ БУДУТ
+    <string name="preferences_include_system_summaryOn">Анализировать также системные приложения</string>
+    <string name="preferences_include_system_summaryOff">Системные приложения анализироваться НЕ БУДУТ
     </string>
 
     <string name="preferences_internet_only_title">Только Интернет-apps</string>
-    <string name="preferences_internet_only_summaryOn">Анализировать ТОЛЬКО приложения и библотеки, требующие доступ в
+    <string name="preferences_internet_only_summaryOn">Анализировать ТОЛЬКО приложения, требующие доступ в
         Интернет
     </string>
-    <string name="preferences_internet_only_summaryOff">Анализировать ВСЕ приложения и библотеки</string>
+    <string name="preferences_internet_only_summaryOff">Анализировать ВСЕ приложения</string>
 </resources>

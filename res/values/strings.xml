@@ -16,17 +16,17 @@
 
     <string name="preferences_activity_label">Preferences</string>
 
-    <string name="preferences_analyze_packages_title">Show Packages</string>
-    <string name="preferences_analyze_packages_summaryOn">Applications and Packages will be analyzed</string>
-    <string name="preferences_analyze_packages_summaryOff">Only Applications will be analyzed</string>
+    <!--<string name="preferences_analyze_packages_title">Show Packages</string>-->
+    <!--<string name="preferences_analyze_packages_summaryOn">Applications and Packages will be analyzed</string>-->
+    <!--<string name="preferences_analyze_packages_summaryOff">Only Applications will be analyzed</string>-->
 
     <string name="preferences_include_system_title">Include System Apps</string>
-    <string name="preferences_include_system_summaryOn">System Applications/Packages will be analyzed</string>
-    <string name="preferences_include_system_summaryOff">Only Non-System Applications/Packages will be analyzed</string>
+    <string name="preferences_include_system_summaryOn">System Applications will be analyzed</string>
+    <string name="preferences_include_system_summaryOff">Only Non-System Applications will be analyzed</string>
 
     <string name="preferences_internet_only_title">Internet Apps Only</string>
-    <string name="preferences_internet_only_summaryOn">Show Applications/Packages that REQUIRE Internet access.</string>
-    <string name="preferences_internet_only_summaryOff">Show Applications/Packages that DOES NOT REQUIRE Internet
+    <string name="preferences_internet_only_summaryOn">Show Applications that REQUIRE Internet access.</string>
+    <string name="preferences_internet_only_summaryOff">Show Applications that DOES NOT REQUIRE Internet
         access.
     </string>
 
