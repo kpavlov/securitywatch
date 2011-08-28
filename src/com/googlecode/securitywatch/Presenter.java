@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageItemInfo;
 import android.os.AsyncTask;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 /**
  * Presenter
@@ -38,17 +39,21 @@ public class Presenter {
                 item.setEnabled(false);
             }
             publishProgress(true);
-            return PermissionDAO.listApplications(permissionsActivity);
+            return PermissionDAO.listApplications(permissionsActivity.getApplicationContext());
         }
 
         @Override
         protected void onProgressUpdate(Boolean... values) {
             if (values[0]) {
-                dialog = ProgressDialog.show(permissionsActivity,
-                        permissionsActivity.getResources().getString(R.string.dialog_loading_title),
-                        permissionsActivity.getResources().getString(R.string.dialog_loading_description),
-                        true);
-
+                try {
+                    dialog = ProgressDialog.show(permissionsActivity,
+                            permissionsActivity.getResources().getString(R.string.dialog_loading_title),
+                            permissionsActivity.getResources().getString(R.string.dialog_loading_description),
+                            true);
+                } catch (WindowManager.BadTokenException e) {
+                    // activity is not running
+                    dialog = null;
+                }
             } else if (dialog != null) {
                 dialog.hide();
                 dialog = null;

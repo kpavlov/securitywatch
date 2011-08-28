@@ -33,7 +33,7 @@ public class PermissionsActivity extends ExpandableListActivity {
         // Set up our adapter
         Presenter.permissionsActivity = this;
 
-        permissionListAdapter = new PermissionListAdapter(this);
+        permissionListAdapter = new PermissionListAdapter(getApplicationContext());
         setListAdapter(permissionListAdapter);
 
 

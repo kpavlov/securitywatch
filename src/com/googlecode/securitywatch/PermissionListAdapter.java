@@ -1,6 +1,6 @@
 package com.googlecode.securitywatch;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageItemInfo;
 import android.view.Gravity;
 import android.view.View;
@@ -18,15 +18,15 @@ import com.googlecode.securitywatch.view.AppView;
  */
 class PermissionListAdapter extends BaseExpandableListAdapter {
 
-    private final Activity ctx;
+    private final Context ctx;
 
     private IndexedMultiValueMap<String, PackageItemInfo> data;
 
-    public PermissionListAdapter(Activity ctx) {
+    public PermissionListAdapter(Context ctx) {
         this(ctx, new IndexedMultiValueMap<String, PackageItemInfo>());
     }
 
-    public PermissionListAdapter(Activity ctx, IndexedMultiValueMap<String, PackageItemInfo> data) {
+    public PermissionListAdapter(Context ctx, IndexedMultiValueMap<String, PackageItemInfo> data) {
         this.ctx = ctx;
         this.data = data;
     }

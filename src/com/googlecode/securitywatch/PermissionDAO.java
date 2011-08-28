@@ -1,7 +1,7 @@
 package com.googlecode.securitywatch;
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageItemInfo;
@@ -21,11 +21,11 @@ public abstract class PermissionDAO {
     /**
      * Processes system permissions and returns data structure for {@link PermissionListAdapter}
      *
-     * @param ctx main activity
+     * @param ctx application context
      * @return Permissions to package names map. Key is permission name,
      *         value is package names, having this permission
      */
-    public static IndexedMultiValueMap<String, PackageItemInfo> listApplications(Activity ctx) {
+    public static IndexedMultiValueMap<String, PackageItemInfo> listApplications(Context ctx) {
         /* Maps permission to package names. Key is permission name,
  value is package names, granted this permission */
         IndexedMultiValueMap<String, PackageItemInfo> result = new IndexedMultiValueMap<String, PackageItemInfo>();
