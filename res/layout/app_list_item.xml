@@ -7,10 +7,13 @@
                android:layout_height="match_parent"
                android:gravity="left"
                android:paddingLeft="10dip"
-               android:maxHeight="32dip"
-               android:maxWidth="32dip"/>
+               android:scaleType="centerInside"
+               android:adjustViewBounds="true"
+               android:maxHeight="36dip"
+               android:maxWidth="46dip"/>
     <TextView android:id="@+id/app_list_item_label"
               android:layout_width="fill_parent"
               android:layout_height="match_parent"
-              android:gravity="left"/>
+              android:gravity="left"
+              android:paddingLeft="4dip"/>
 </LinearLayout>
