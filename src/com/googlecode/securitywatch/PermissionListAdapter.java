@@ -1,14 +1,15 @@
 package com.googlecode.securitywatch;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageItemInfo;
-import android.view.Gravity;
+import android.content.pm.PackageManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import com.googlecode.securitywatch.view.AppView;
 
 /**
  * Adapter which maintains expandable permission list with applications which have these permissions.
@@ -20,6 +21,8 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
 
     private final Context ctx;
 
+    private final LayoutInflater mInflater;
+
     private IndexedMultiValueMap<String, PackageItemInfo> data;
 
     public PermissionListAdapter(Context ctx) {
@@ -29,6 +32,7 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
     public PermissionListAdapter(Context ctx, IndexedMultiValueMap<String, PackageItemInfo> data) {
         this.ctx = ctx;
         this.data = data;
+        this.mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public PackageItemInfo getChild(int groupPosition, int childPosition) {
@@ -47,32 +51,26 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
         ).size();
     }
 
-    private TextView getGenericView() {
-        // Layout parameters for the ExpandableListView
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 36);
-
-        TextView textView = new TextView(ctx);
-        textView.setLayoutParams(lp);
-        // Center the text vertically
-        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-//        textView.setTextColor(R.color.marcyred);
-        // Set the text starting position
-        textView.setPadding(36, 0, 0, 0);
-        return textView;
-    }
-
     /**
      * Returns view for application row
      */
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                              View convertView, ViewGroup parent) {
         final PackageItemInfo packageItemInfo = getChild(groupPosition, childPosition);
-        final AppView appView = new AppView(ctx, packageItemInfo);
+
+        final PackageManager pm = ctx.getPackageManager();
+        final View appView = mInflater.inflate(R.layout.app_list_item, null);
+        final ImageView icon = (ImageView) appView.findViewById(R.id.app_list_item_icon);
+        final TextView label = (TextView) appView.findViewById(R.id.app_list_item_label);
+
+        if (packageItemInfo instanceof ApplicationInfo) {
+            icon.setImageDrawable(pm.getApplicationIcon((ApplicationInfo) packageItemInfo));
+            label.setText(pm.getApplicationLabel((ApplicationInfo) packageItemInfo));
+        } else {
+            icon.setImageResource(packageItemInfo.icon);
+            label.setText(packageItemInfo.packageName);
+        }
         return appView;
-//        TextView textView = getGenericView();
-//        textView.setText(getChild(groupPosition, childPosition).toString());
-//        return textView;
     }
 
     public Object getGroup(int groupPosition) {
@@ -92,7 +90,7 @@ class PermissionListAdapter extends BaseExpandableListAdapter {
 
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
                              ViewGroup parent) {
-        TextView textView = getGenericView();
+        TextView textView = (TextView) mInflater.inflate(R.layout.permission_list_item, null);
         textView.setText(getGroup(groupPosition).toString());
         return textView;
     }

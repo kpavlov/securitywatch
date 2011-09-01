@@ -35,8 +35,6 @@ public class PermissionsActivity extends ExpandableListActivity {
 
         permissionListAdapter = new PermissionListAdapter(getApplicationContext());
         setListAdapter(permissionListAdapter);
-
-
     }
 
     @Override
@@ -88,7 +86,9 @@ public class PermissionsActivity extends ExpandableListActivity {
         super.onLowMemory();
     }
 
-    /** Called by presenter when presenter has fiished fetching data from DAO */
+    /**
+     * Called by presenter when presenter has fiished fetching data from DAO
+     */
     public void onContentChanged(IndexedMultiValueMap<String, PackageItemInfo> data) {
         permissionListAdapter.setData(data);
     }
