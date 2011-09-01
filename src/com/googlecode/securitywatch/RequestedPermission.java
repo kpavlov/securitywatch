@@ -14,16 +14,16 @@ public enum RequestedPermission {
 
     READ_CONTACTS(Manifest.permission.READ_CONTACTS),
     WRITE_CONTACTS(Manifest.permission.WRITE_CONTACTS),
-    
+
     READ_CALENDAR(Manifest.permission.READ_CALENDAR),
-    WRITE_CALENDAR(Manifest.permission.WRITE_CALENDAR), 
+    WRITE_CALENDAR(Manifest.permission.WRITE_CALENDAR),
 
     READ_OWNER_DATA(Manifest.permission.READ_OWNER_DATA),
     WRITE_OWNER_DATA(Manifest.permission.WRITE_OWNER_DATA),
 
     CALL_PHONE(Manifest.permission.CALL_PHONE),
     PROCESS_OUTGOING_CALLS(Manifest.permission.PROCESS_OUTGOING_CALLS),
-    
+
     RECORD_AUDIO(Manifest.permission.RECORD_AUDIO),
 
     SEND_SMS(Manifest.permission.SEND_SMS),
@@ -40,7 +40,6 @@ public enum RequestedPermission {
     READ_BROWSE_HISTORY(Manifest.permission.READ_HISTORY_BOOKMARKS),
     WRITE_BROWSE_HISTORY(Manifest.permission.WRITE_HISTORY_BOOKMARKS),
 
-    ACCESS_MOCK_LOCATION(Manifest.permission.ACCESS_MOCK_LOCATION),
     ACCESS_COARSE_LOCATION(Manifest.permission.ACCESS_COARSE_LOCATION),
     ACCESS_FINE_LOCATION(Manifest.permission.ACCESS_FINE_LOCATION),
 
