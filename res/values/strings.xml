@@ -30,4 +30,8 @@
         access.
     </string>
 
+    <string name="preferences_show_safe_permissions_title">Show "safe" permissions</string>
+    <string name="preferences_show_safe_permissions_summaryOn">Show all permissions, including "safe" ones</string>
+    <string name="preferences_show_safe_permissions_summaryOff">Show only sufficient permissions, exclude "safe" ones
+    </string>
 </resources>

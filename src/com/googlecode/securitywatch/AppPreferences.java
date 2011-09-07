@@ -26,6 +26,8 @@ public class AppPreferences extends PreferenceActivity {
      */
     public static final String KEY_INCLUDE_PACKAGES = "includePackages";
 
+    public static final String KEY_SHOW_SAFE_PERMISSIONS = "showSafePermissions";
+
     /**
      * This activity can be started by an intent with this action.
      */

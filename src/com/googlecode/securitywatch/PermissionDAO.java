@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import com.googlecode.securitywatch.scanner.Permissions;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 31.07.2010
  */
 public abstract class PermissionDAO {
+
 
     /**
      * Processes system permissions and returns data structure for {@link PermissionListAdapter}
@@ -34,29 +36,35 @@ public abstract class PermissionDAO {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         final boolean internetOnly = prefs.getBoolean(AppPreferences.KEY_INTERNET_ONLY, true);
         final boolean includeSystem = prefs.getBoolean(AppPreferences.KEY_INCLUDE_SYSTEM, false);
+        final boolean showSafePermissions = prefs.getBoolean(AppPreferences.KEY_SHOW_SAFE_PERMISSIONS, false);
         //final boolean includePackages = prefs.getBoolean(AppPreferences.KEY_INCLUDE_PACKAGES, false);
+
+        final List<String> allPermissions = Permissions.getAllPermissions(pm, showSafePermissions);
 
         final List<ApplicationInfo> apps = pm.getInstalledApplications(PackageManager.GET_PERMISSIONS);
         for (final ApplicationInfo app : apps) {
-            for (RequestedPermission permission : RequestedPermission.values()) {
+            if (!includeSystem && ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 1)) {
+                continue;
+            }
+
+            for (String permission : allPermissions) {
                 //noinspection StringEquality
-                if (internetOnly && Manifest.permission.INTERNET == permission.getPermission()) {
+                if (internetOnly && Manifest.permission.INTERNET == permission) {
                     // don't show apps having inet permission in separate group
                     continue;
                 }
 
-                if (!includeSystem && ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 1)) {
-                    continue;
-                }
                 if (internetOnly && !Utils.hasPermission(app.packageName, Manifest.permission.INTERNET, pm)) {
                     continue;
                 }
 
-                if (Utils.hasPermission(app.packageName, permission.getPermission(), pm)) {
-                    result.add(permission.getPermission(), app);
+                if (Utils.hasPermission(app.packageName, permission, pm)) {
+                    result.add(permission, app);
                 }
             }
         }
         return result;
     }
+
+
 }

@@ -22,4 +22,11 @@
                 android:summaryOff="@string/preferences_analyze_packages_summaryOff"
                 android:defaultValue="false"/>
     -->
+    <android.preference.CheckBoxPreference
+            android:key="showSafePermissions"
+            android:title="@string/preferences_show_safe_permissions_title"
+            android:summaryOn="@string/preferences_show_safe_permissions_summaryOn"
+            android:summaryOff="@string/preferences_show_safe_permissions_summaryOff"
+            android:defaultValue="false"/>
+
 </PreferenceScreen>

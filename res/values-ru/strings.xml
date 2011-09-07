@@ -34,4 +34,11 @@
         Интернет
     </string>
     <string name="preferences_internet_only_summaryOff">Анализировать ВСЕ приложения</string>
+
+    <string name="preferences_show_safe_permissions_title">Показывать "безопасные" привилегии</string>
+    <string name="preferences_show_safe_permissions_summaryOn">Показывать все привилегии, в том числе "безопасные"
+    </string>
+    <string name="preferences_show_safe_permissions_summaryOff">Показывать только важные привилегии, исключить
+        "безопасные"
+    </string>
 </resources>
